@@ -8,7 +8,7 @@ import share from '../../assets/share.png'
 import save from '../../assets/save.png'
 // import jack from '../../assets/jack.png'
 // import user_profile from '../../assets/user_profile.jpg'
-import { API_KEY, value_converter } from '../../data'
+import { value_converter } from '../../data'
 import { useParams } from 'react-router-dom'
 
 function PlayVideo() {
@@ -21,17 +21,17 @@ function PlayVideo() {
 
   const fetchVideoData = async () =>{
     //fetching video data
-    const videoDetails_url = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${videoId}&key=${API_KEY} `;
+    const videoDetails_url = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${videoId}&key=${import.meta.env.VITE_API_KEY} `;
     await fetch(videoDetails_url).then(response=>response.json()).then(data=>setApiData(data.items[0]))
   }
 
   const fetchChannelData = async()=>{
     //fetching channel data
-    const channelDetails_url = `https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&id=${apiData.snippet.channelId}&key=${API_KEY}`;
+    const channelDetails_url = `https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&id=${apiData.snippet.channelId}&key=${import.meta.env.VITE_API_KEY}`;
     await fetch(channelDetails_url).then(res=>res.json()).then(data=>setChannelData(data.items[0]));
 
     // fetching comment data
-    const comment_url = `https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet%2Creplies&maxResults=50&videoId=${videoId}&key=${API_KEY}`;
+    const comment_url = `https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet%2Creplies&maxResults=50&videoId=${videoId}&key=${import.meta.env.VITE_API_KEY}`;
     await fetch(comment_url).then(res=>res.json()).then(data=>setCommentData(data.items));
   }
 
